@@ -56,7 +56,7 @@ export const environment = {
 
   displayBackEndInfo: loadedEnv.displayBackEndInfo || 'true',
   displayTenantSelector: loadedEnv.displayTenantSelector || 'true',
-  tenantLogoUrl: loadedEnv.tenantLogoUrl || 'assets/images/mifos_lg-logo.png',
+  tenantLogoUrl: loadedEnv.tenantLogoUrl || 'assets/images/mifos_lg-logo.jpg',
   documentationBaseUrl: loadedEnv.documentationBaseUrl || 'https://mifosforge.jira.com/wiki',
   // Time in seconds, default 60 seconds
   waitTimeForNotifications: loadedEnv.waitTimeForNotifications || 60,
@@ -77,11 +77,15 @@ export const environment = {
   minPasswordLength: loadedEnv.minPasswordLength || 12,
 
   OIDC: {
-    oidcServerEnabled: window['env']['oidcServerEnabled'] === true || window['env']['oidcServerEnabled'] === 'true',
-    oidcBaseUrl: window['env']['oidcBaseUrl'] || '',
-    oidcClientId: window['env']['oidcClientId'] || '',
-    oidcApiUrl: window['env']['oidcApiUrl'] || '',
-    oidcFrontUrl: window['env']['oidcFrontUrl'] || ''
+    // Support legacy FINERACT_PLUGIN_OIDC_* variable names for backward compatibility
+    oidcServerEnabled:
+      loadedEnv.oidcServerEnabled === true ||
+      loadedEnv.oidcServerEnabled === 'true' ||
+      loadedEnv.FINERACT_PLUGIN_OIDC_ENABLED === 'true',
+    oidcBaseUrl: loadedEnv.oidcBaseUrl || loadedEnv.FINERACT_PLUGIN_OIDC_BASE_URL || '',
+    oidcClientId: loadedEnv.oidcClientId || loadedEnv.FINERACT_PLUGIN_OIDC_CLIENT_ID || '',
+    oidcApiUrl: loadedEnv.oidcApiUrl || loadedEnv.FINERACT_PLUGIN_OIDC_API_URL || '',
+    oidcFrontUrl: loadedEnv.oidcFrontUrl || loadedEnv.FINERACT_PLUGIN_OIDC_FRONTEND_URL || ''
   }
 };
 
